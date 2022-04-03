@@ -1,0 +1,72 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">New shop</h1>
+  <div class="col-md-6 offset-md-3">
+
+    <form action="/shops" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="shop[title]" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        Location
+        <div class="d-flex flex-row justify-content-between mx-auto w-100" >
+
+          <select class="form-select" name="shop[location]" id="country" aria-label="Default select example">
+            <option disabled>Country</option>
+            <% for (let country of countries) { %> 
+              <option value="<%= country.name %>"><%= country.name %></option>
+            <% } %> 
+          </select>
+
+          <input class="form-control" type="text" name="shop[location]" id="city" placeholder="City" required >
+
+      </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="form-file custom-file">
+          <input type="file" class="form-file-input" id="image" name="image" multiple>
+          <label class="form-file-label" for="image">
+          </label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="product">Product</label>
+        <input class="form-control" type="text" id="product" name="shop[product]" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price"
+            aria-describedby="price-label" name="shop[price]" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="shop[description]" required></textarea>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-success">Add shop</button>
+      </div>
+    </form>
+    <a href="/shops">All shops</a>
+  </div>
+</div>

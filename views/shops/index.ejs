@@ -1,0 +1,162 @@
+<% layout('layouts/boilerplate')  %>
+<link rel="stylesheet" href="/styles/stars.css">
+
+
+<div id="cluster-map"></div>
+
+<div class="btn-group mt-5 mb-4" role="group">
+  <a class="btn bg-white border-1 rounded-pill shadow-sm" id="index-pill" href="/shops">All Food Carts</a>
+  <a class="btn mx-2 bg-white border-1 rounded-pill shadow-sm" id="index-pill" href="/shops/new">Add New Cart</a>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn bg-white border-1 rounded-pill shadow-sm" id="index-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Filters
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/shops/filter" method="get">
+          <div class="modal-body">
+            <div id="state">
+              <div class="mb-3">
+                State
+              </div>
+              <div class="mb-4">
+                <select class="form-select" name="state" aria-label="Default select example">
+                  <option value="">All Countries</option>
+                  <% for (let country of countries) { %> 
+                    <option value="<%= country.name %>"><%= country.name %></option>
+                  <% } %> 
+                </select>
+              </div>
+            </div>
+            <div id="price">
+              <div class="mb-4">
+                <label for="customRange2" class="form-label w-100 mb-3 pt-3 border-top border-1" id="modal-content">Price<i class="fa-solid fa-circle-info mx-2" data-bs-toggle="tooltip" data-bs-placement="right" title="'Price of what?' I hear you say.. It doesn't make any sense. I just wanted to experiment with a numeric filter :)"></i></label>
+                <div slider id="slider-distance">
+                  <div>
+                    <div inverse-left style="width:100%;"></div>
+                    <div inverse-right style="width:100%;"></div>
+                    <div range style="left:0%;right:0%;"></div>
+                    <span thumb style="left:0%;"></span>
+                    <span thumb style="left:100%;"></span>
+                    <div id="min-sign" sign style="left:0%;">
+                      <span id="value">1</span>
+                    </div>
+                    <div id="max-sign" sign style="left:100%;">
+                      <span id="value">10</span>
+                    </div>
+                  </div>
+                  <input type="range" id="min-range" tabindex="0" value="1" max="10" min="1" step="1" oninput="positionThumbMin();
+                  minTxt.value = this.value;" />
+                  <input type="range" id="max-range" tabindex="0" value="10" max="10" min="1" step="1" oninput="positionThumbMax();
+                  maxTxt.value = this.value;" />
+                </div>
+                <div>
+                  <label for="priceMin">Min: </label>
+                  <input type="number" value="1" name="priceMin" id="min-txt" oninput="minRange.value = this.value;
+                  positionThumbMin();
+                  minTxt.value = minRange.value;
+                  ">
+                  <label for="priceMax">Max:</label>
+                  <input type="number" value="10" name="priceMax" id="max-txt" oninput="maxRange.value = this.value;
+                  positionThumbMax();
+                  maxTxt.value = maxRange.value;">
+                </div>
+              </div>
+            </div>
+            <div id="product">
+              <div class="mb-3 pt-3 border-top border-1" id="modal-content">Product</div>
+              <div>
+                <span>
+                <input type="checkbox" name="product" id="product-hotdog" value="hotdog">
+                <label for="hotdog">Hot-dog</label>
+              </span>
+              <span class="mx-1">
+                <input type="checkbox" name="product" id="product-pizza" value="pizza">
+                <label for="pizza">Pizza</label>
+              </span>
+              <span class="mx-1">
+                <input type="checkbox" name="product" id="product-coffee" value="coffee">
+                <label for="coffee">Coffee</label>
+              </span>
+              <span>
+                <input type="checkbox" name="product" id="product-cocktail" value="cocktail">
+                <label for="cocktail">Cocktail</label>
+              </span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input type="submit" value="Save Changes" class="btn btn-primary">
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <% if (shops.length > 0) {%>
+    
+    <div class="row row-cols-1 row-cols-lg-4 g-5">
+      <!-- Testing for review average -->
+      <% const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length; %>
+      <!--  -->
+    <% for(let shop of shops){ %>
+      <!-- Testing for review average -->
+      <% let totalShopRatings = [] %>
+      <% for (let review of shop.reviews) { %>
+        <% totalShopRatings.push(review.rating) %> 
+        <% } %> 
+      <% avgShopRating = Math.floor(average(totalShopRatings)) %>
+      <!--  -->
+      <div class="col">
+      <div class="card h-100 border-1 border-white rounded shadow">
+          <% if(shop.images.length) { %>
+          <img src="<%= shop.images[0].thumbnail %> " alt="image" class="class-img-top border border-white rounded">
+          <%} else { %>
+          <img src="" alt="no image">
+          <% } %>
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= shop.title %>
+            </h5>
+            <p class="starability-result" data-rating="<%= avgShopRating %>">
+              Rated: <%= avgShopRating %> stars
+            </p>
+            <p class="text-muted"><%= shop.location[1] %>, <%= shop.location[0] %></p>
+            <p class="d-lg-none"><%= shop.description %> </p>
+            <p>Product: <%= shop.product %> <br> Price: $<%= shop.price %>   </p>
+
+            <a href="/shops/<%= shop._id %> " class="btn btn-primary">Details</a>
+          </div>
+      </div>
+  </div>
+    <%} %>
+  </div>
+  <% } else { %>
+    <div class="mx-auto text-center mt-5" >
+      <h3 >No shops found :(</h3>
+    </div>
+    <% } %>
+
+
+    
+
+<!-- Map Config -->
+<script>
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const shops = {
+    features: <%- JSON.stringify(shops) %>
+  };
+</script>
+
+<script src="/js/filterRange.js"></script>
+
+<script src="/js/clusterMap.js"></script>

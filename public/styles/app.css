@@ -1,0 +1,25 @@
+#cluster-map {
+  width: calc(100vw - 20px);
+  margin-left: calc(-50vw + 50% + 10px);
+  height: 300px;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
+}
+
+
+
+/* Index  */
+#index-pill {
+  border-color: rgb(216, 216, 216, 0.8);
+}
+#index-pill:hover {
+  border-color: rgba(0, 0, 0, 0.623);
+  transition-duration: 300ms;
+}
+
+#modal-content {
+  border-color: rgba(0, 0, 0, 0.274);
+}
