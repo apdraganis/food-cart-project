@@ -80,9 +80,6 @@ const sessionConfig = {
   }
 }
 
-// app.use(
-//   helmet()
-// );
 app.use(session(sessionConfig))
 app.use(flash());
 
