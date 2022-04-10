@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Shop = require('../models/shop');
-const cities = require('./cities');
-const randomShops = require('./randomShops');
 const capitals = require('./capitals');
 
 mongoose.connect('mongodb://localhost:27017/coffeeshop-project');
