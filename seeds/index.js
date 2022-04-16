@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Shop = require('../models/shop');
-const cities = require('./cities');
-const randomShops = require('./randomShops');
 const capitals = require('./capitals');
 
 mongoose.connect('mongodb://localhost:27017/coffeeshop-project');
@@ -17,7 +15,7 @@ const products = ['hotdog', 'pizza', 'coffee', 'cocktail'];
 
 const seedDB = async () => {
   await Shop.deleteMany({});
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     const random200 = Math.floor(Math.random() * 200);
     const price = Math.floor(Math.random() * 10) + 1;
     const product = products[Math.floor(Math.random() * products.length)];

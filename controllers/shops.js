@@ -38,6 +38,13 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createShop = async (req, res, next) => {
+  const shopCount = await Shop.count();
+  if (shopCount >= 20) {
+    req.flash('error', 'Maximum number of shops!');
+    res.redirect(`/shops`);
+    return
+  }
+
   const geoData = await geocoder.forwardGeocode({
     query: `${req.body.shop.location[1]}, ${req.body.shop.location[0]}`,
     limit: 1
