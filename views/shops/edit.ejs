@@ -6,14 +6,14 @@
       enctype="multipart/form-data">
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
-        <input class="form-control" type="text" id="title" name="shop[title]" value="<%=shop.title%>" required>
+        <input class="form-control" type="text" id="title" name="shop[title]" value="<%=shop.title%>" maxlength="25" required>
         <div class="valid-feedback">
           Looks good!
         </div>
       </div>
 
       <div class="mb-3">
-        Location
+        <label class="form-label" for="location">Location</label>
         <div class="d-flex flex-row justify-content-between mx-auto w-100" >
 
           <select class="form-select" name="shop[location]" id="country" aria-label="Default select example">
@@ -24,11 +24,12 @@
             <% } %> 
           </select>
 
-          <input class="form-control" type="text" name="shop[location]" id="city" placeholder="<%= shop.location[1] %>" required >
+          <input class="form-control" type="text" name="shop[location]" id="city" value="<%= shop.location[1] %>" maxlength="25" required >
       </div>
       </div>
 
       <div class="mb-3">
+        <label class="form-label" for="image">Image(s)</label>
         <div class="form-file custom-file">
           <input type="file" class="form-file-input" id="image" name="image" multiple>
           <label class="form-file-label" for="image">
@@ -36,12 +37,28 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label class="form-label" for="product">Product</label>
         <input class="form-control" type="text" id="product" name="shop[product]" value="<%=shop.product%>" required>
         <div class="valid-feedback">
           Looks good!
         </div>
+      </div> -->
+
+      <div class="mb-3">
+        <label class="form-label" for="product">Product</label>
+          <div>
+              <input type="radio" name="shop[product]" id="product-hotdog" value="Hot-Dog" required>
+              <label for="hotdog">Hot-dog</label>
+              <input type="radio" name="shop[product]" id="product-pizza" value="Pizza">
+              <label for="pizza">Pizza</label>
+              <input type="radio" name="shop[product]" id="product-coffee" value="Coffee">
+              <label for="coffee">Coffee</label>
+              <input type="radio" name="shop[product]" id="product-cocktail" value="Cocktail">
+              <label for="cocktail">Cocktail</label>
+              <input type="radio" name="shop[product]" id="product-icecream" value="Ice-Cream">
+              <label for="icecream">Ice-Cream</label>
+          </div>
       </div>
 
       <div class="mb-3">
@@ -58,7 +75,7 @@
 
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
-        <textarea class="form-control" type="text" id="description" name="shop[description]" <%=shop.description%>
+        <textarea class="form-control" type="text" id="description" name="shop[description]" <%=shop.description%> maxlength="400"
           required><%= shop.description %> </textarea>
         <div class="valid-feedback">
           Looks good!
