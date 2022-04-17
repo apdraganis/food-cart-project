@@ -6,7 +6,7 @@
     <form action="/shops" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
-        <input class="form-control" type="text" id="title" name="shop[title]" required>
+        <input class="form-control" type="text" id="title" name="shop[title]" maxlength="25" required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -14,18 +14,18 @@
 
       <div class="mb-3">
         Location
-        <div class="d-flex flex-row justify-content-between mx-auto w-100" >
+        <div class="d-flex flex-row justify-content-between mx-auto w-100">
 
           <select class="form-select" name="shop[location]" id="country" aria-label="Default select example">
             <option disabled>Country</option>
-            <% for (let country of countries) { %> 
-              <option value="<%= country.name %>"><%= country.name %></option>
-            <% } %> 
+            <% for (let country of countries) { %>
+            <option value="<%= country.name %>"><%= country.name %></option>
+            <% } %>
           </select>
 
-          <input class="form-control" type="text" name="shop[location]" id="city" placeholder="City" required >
+          <input class="form-control" type="text" name="shop[location]" id="city" placeholder="City" maxlength="25" required>
 
-      </div>
+        </div>
       </div>
 
       <div class="mb-3">
@@ -36,12 +36,28 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label class="form-label" for="product">Product</label>
         <input class="form-control" type="text" id="product" name="shop[product]" required>
         <div class="valid-feedback">
           Looks good!
         </div>
+      </div> -->
+
+      <div class="mb-3">
+        <label class="form-label" for="product">Product</label>
+          <div>
+              <input type="radio" name="shop[product]" id="product-hotdog" value="Hot-Dog" checked>
+              <label for="hotdog">Hot-dog</label>
+              <input type="radio" name="shop[product]" id="product-pizza" value="Pizza">
+              <label for="pizza">Pizza</label>
+              <input type="radio" name="shop[product]" id="product-coffee" value="Coffee">
+              <label for="coffee">Coffee</label>
+              <input type="radio" name="shop[product]" id="product-cocktail" value="Cocktail">
+              <label for="cocktail">Cocktail</label>
+              <input type="radio" name="shop[product]" id="product-icecream" value="Ice-Cream">
+              <label for="icecream">Ice-Cream</label>
+          </div>
       </div>
 
       <div class="mb-3">
@@ -49,7 +65,7 @@
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
           <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price"
-            aria-describedby="price-label" name="shop[price]" required>
+            aria-describedby="price-label" name="shop[price]" maxlength="400" required>
           <div class="valid-feedback">
             Looks good!
           </div>

@@ -15,7 +15,7 @@ const products = ['hotdog', 'pizza', 'coffee', 'cocktail'];
 
 const seedDB = async () => {
   await Shop.deleteMany({});
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 20; i++) {
     const random200 = Math.floor(Math.random() * 200);
     const price = Math.floor(Math.random() * 10) + 1;
     const product = products[Math.floor(Math.random() * products.length)];
