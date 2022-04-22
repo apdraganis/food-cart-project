@@ -95,7 +95,13 @@ module.exports.updateShop = async (req, res) => {
   }).send()
   shop.geometry = geoData.body.features[0].geometry;
   const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+
+  if (shop.images.length + imgs.length > 3) {
+    console.log('error')
+  }
+
   shop.images.push(...imgs);
+
   await shop.save();
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
