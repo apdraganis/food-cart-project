@@ -2,14 +2,13 @@ mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: 'cluster-map',
   style: 'mapbox://styles/mapbox/streets-v11',
-  center: [23.98451656180305, 47.1178035713464],
-  zoom: 3
+  center: [22.915669223311617, 40.618747160370816],
+  zoom: 9
 });
 
 map.addControl(new mapboxgl.FullscreenControl());
 map.addControl(new mapboxgl.NavigationControl());
 map.scrollZoom.disable();
-
 
 map.on('load', () => {
   // Add a new source from our GeoJSON data and
