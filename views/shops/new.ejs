@@ -29,6 +29,7 @@
       </div>
 
       <div class="mb-3">
+        Images (max 3)
         <div class="form-file custom-file">
           <input type="file" class="form-file-input" id="image" name="image" multiple>
           <label class="form-file-label" for="image">
@@ -86,3 +87,17 @@
     <a href="/shops">All shops</a>
   </div>
 </div>
+
+<!-- Limit file upload -->
+<script>
+  const form = document.querySelector("form");
+  const fileInput = document.querySelector("input[type=file]")
+  
+  form.addEventListener("submit", function() {
+
+    if(fileInput.files.length > 3) {
+      alert('This is not a photography gallery, please upload 3 images maximum!')
+      event.preventDefault();
+    }
+  })
+</script>

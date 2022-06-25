@@ -10,7 +10,7 @@ const upload = multer({ storage });
 
 router.route('/')
   .get(catchAsync(shops.index))
-  .post(isLoggedIn, upload.array('image'), validateShop, catchAsync(shops.createShop))
+  .post(isLoggedIn, upload.array('image', 3), validateShop, catchAsync(shops.createShop))
 
 router.route('/filter')
   .get(catchAsync(shops.filter))
